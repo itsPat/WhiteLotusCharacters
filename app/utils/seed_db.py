@@ -166,7 +166,7 @@ def seed_relationships(db: Session, characters: list[Character]):
     
     db.commit()
 
-def seed_db():
+def seed_db_if_needed():
     print("Starting database seeding...")
     # Get a database session
     db = next(get_db())

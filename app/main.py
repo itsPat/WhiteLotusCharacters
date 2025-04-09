@@ -4,7 +4,7 @@ from .models.base import Base
 from .database import engine
 from .middleware.ErrorHandlerMiddleware import ErrorHandlerMiddleware
 from .routers import character
-from .utils.seed_db import seed_db
+from .utils.seed_db import seed_db_if_needed
 
 # Create all tables in the database
 Base.metadata.create_all(bind=engine)
@@ -25,8 +25,8 @@ app.add_middleware(ErrorHandlerMiddleware)
 # Setup Routers
 app.include_router(character.router)
 
-
-seed_db()
+# Seed the DB if needed.
+seed_db_if_needed()
 
 if __name__ == "__main__":
     import uvicorn
