@@ -2,6 +2,8 @@
 
 > This FastAPI application models the relationships between characters on White Lotus Season 3.
 
+![White Lotus Cast](/public/white_lotus_cast.jpg)
+
 ---
 
 # Setup Instructions

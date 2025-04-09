@@ -1,19 +1,32 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from .models.base import Base
 from .database import engine
-from .middleware import error_handler
+from .middleware.ErrorHandlerMiddleware import ErrorHandlerMiddleware
 from .routers import character
+from .utils.seed_db import seed_db
 
+# Create all tables in the database
 Base.metadata.create_all(bind=engine)
+
+# Define the lifespan context manager
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup: seed the database
+    yield
+    # Shutdown: clean up resources if needed
 
 # Setup Server
 app = FastAPI()
 
 # Setup Middleware
-app.add_middleware(error_handler)
+app.add_middleware(ErrorHandlerMiddleware)
 
 # Setup Routers
 app.include_router(character.router)
+
+
+seed_db()
 
 if __name__ == "__main__":
     import uvicorn
