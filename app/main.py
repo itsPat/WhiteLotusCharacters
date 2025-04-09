@@ -1,4 +1,3 @@
-from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from .models.base import Base
 from .database import engine
@@ -8,13 +7,6 @@ from .utils.seed_db import seed_db_if_needed
 
 # Create all tables in the database
 Base.metadata.create_all(bind=engine)
-
-# Define the lifespan context manager
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Startup: seed the database
-    yield
-    # Shutdown: clean up resources if needed
 
 # Setup Server
 app = FastAPI()
