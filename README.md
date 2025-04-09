@@ -31,7 +31,7 @@ pip install -r requirements.txt
 brew services start postgresql
 
 # Create a database
-createdb fastapi_db
+createdb white_lotus_characters_db
 ```
 
 ## Step 4: Run the application

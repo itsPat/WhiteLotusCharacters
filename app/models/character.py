@@ -1,7 +1,6 @@
-
 from sqlalchemy import Column, String, ForeignKey, Table
 from sqlalchemy.orm import relationship
-from .database import Base
+from .base import Base
 import uuid
 
 def generate_uuid():
@@ -33,15 +32,3 @@ class Character(Base):
         secondaryjoin=(character_relationships.c.related_character_id == id),
         backref="related_to"
     )
-    
-    group_id = Column(String, ForeignKey("character_groups.id"))
-    group = relationship("CharacterGroup", back_populates="characters")
-
-class CharacterGroup(Base):
-    __tablename__ = "character_groups"
-    
-    id = Column(String, primary_key=True, index=True, default=generate_uuid)
-    name = Column(String, index=True)
-    description = Column(String)
-    
-    characters = relationship("Character", back_populates="group")
